@@ -1,11 +1,11 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin/auth');
+const categoryRoutes = require('./routes/category');
 
 const env = process.env;
 const port = env.PORT || 3000;
@@ -26,9 +26,10 @@ mongoose
   });
 
 //app.use(express.json());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
+app.use('/api', categoryRoutes);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
