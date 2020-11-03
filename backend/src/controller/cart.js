@@ -9,40 +9,33 @@ exports.addItemsToCart = (req, res) => {
       const product = req.body.cartItems.product;
       const item = cart.cartItems.find((c) => c.product == product);
 
-      if (item) {
-        Cart.findOneAndUpdate(
-          { user: req.user._id, 'cartItems.product': product },
-          {
-            $set: {
-              cartItems: {
-                ...req.body.cartItems,
-                quantity: item.quantity + req.body.cartItems.quantity,
-              },
-            },
-          },
-        ).exec((error, _cart) => {
-          if (error) return res.status(400).json({ error });
-          if (_cart) {
-            return res.status(201).json({ cart: _cart });
-          }
-        });
-      } else {
-        Cart.findOneAndUpdate(
-          { user: req.user._id },
-          {
-            $push: {
-              cartItems: req.body.cartItems,
-            },
-          },
-        ).exec((error, _cart) => {
-          if (error) return res.status(400).json({ error });
-          if (_cart) {
-            return res.status(201).json({ cart: _cart });
-          }
-        });
-      }
+      let condition, action;
 
-      // res.status(200).json({ message: cart });
+      if (item) {
+        condition = { user: req.user._id, 'cartItems.product': product };
+        update = {
+          $set: {
+            'cartItems.$': {
+              ...req.body.cartItems,
+              quantity: item.quantity + req.body.cartItems.quantity,
+            },
+          },
+        };
+      } else {
+        condition = { user: req.user._id };
+        update = {
+          $push: {
+            cartItems: req.body.cartItems,
+          },
+        };
+      }
+      Cart.findOneAndUpdate(condition, update).exec((error, _cart) => {
+        if (error) return res.status(400).json({ error });
+        if (_cart) {
+          return res.status(201).json({ cart: _cart });
+        }
+      });
+      // res.status(200).json({  message: cart });
     } else {
       console.log('NO CART');
       // if cart does not exists, then create cart
