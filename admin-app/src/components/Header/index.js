@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 
 function Header() {
@@ -35,6 +35,11 @@ function Header() {
             <li>
               <NavLink to='/signup' className='nav-link'>
                 Signup
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to='/pos' className='nav-link'>
+                POS
               </NavLink>
             </li>
           </Nav>
