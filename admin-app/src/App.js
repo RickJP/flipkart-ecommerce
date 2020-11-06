@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { isUserLoggedIn } from './actions';
 import Products from './containers/Products';
 import Orders from './containers/Orders';
+import Category from './containers/Category';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
         <PrivateRoute path='/' exact component={Home}></PrivateRoute>
         <PrivateRoute path='/products' component={Products}></PrivateRoute>
         <PrivateRoute path='/orders' component={Orders}></PrivateRoute>
+        <PrivateRoute path='/category' component={Category}></PrivateRoute>
         <Route path='/signin' component={Signin}></Route>
         <Route path='/signup' component={Signup}></Route>
         <Route path='/pos' component={Pos}></Route>

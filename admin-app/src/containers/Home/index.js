@@ -6,28 +6,8 @@ import './style.css';
 
 function Home() {
   return (
-    <Layout>
-      <Container fluid>
-        <Row>
-          <Col md={2} className='sidebar'>
-            <ul>
-              <li>
-                <NavLink to={`/`}>HOME</NavLink>
-              </li>
-              <li>
-                <NavLink to={`/products`}>PRODUCTS</NavLink>
-              </li>
-              <li>
-                <NavLink to={`/orders`}>ORDERS</NavLink>
-              </li>
-            </ul>
-          </Col>
-          <Col md={10} className='__home-container'>
-            Container
-          </Col>
-        </Row>
-      </Container>
-
+    <Layout sidebar>
+      Layout
       {/* <Jumbotron
         style={{ margin: '5rem', background: '#fff' }}
         className='text-center'>
