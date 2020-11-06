@@ -60,7 +60,7 @@ exports.signin = (req, res) => {
         return res.status(400).json({ message: 'Invalid password' });
       }
     } else {
-      return res.status(400).json({ message: 'Something went wrong' });
+      return res.status(400).json({ message: 'No user found' });
     }
   });
 };

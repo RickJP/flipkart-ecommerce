@@ -12,7 +12,7 @@ const initState = {
   authenticating: false,
 };
 
-export default (state = initState, action) => {
+const reducer = (state = initState, action) => {
   console.log(action);
 
   switch (action.type) {
@@ -31,7 +31,15 @@ export default (state = initState, action) => {
         authenticating: false,
       };
       break;
+    case authConstants.LOGOUT_REQUEST:
+      state = { ...initState };
+      break;
+
+    default:
+      break;
   }
 
   return state;
 };
+
+export default reducer;
