@@ -10,6 +10,10 @@ const initState = {
   },
   authenticate: false,
   authenticating: false,
+  loading: false,
+  loggedOut: false,
+  error: null,
+  message: '',
 };
 
 const reducer = (state = initState, action) => {
@@ -31,10 +35,22 @@ const reducer = (state = initState, action) => {
         authenticating: false,
       };
       break;
-    case authConstants.LOGOUT_REQUEST:
-      state = { ...initState };
+    case authConstants.LOGIN_FAILURE:
+      state = {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+      };
       break;
-
+    case authConstants.LOGOUT_REQUEST:
+      state = { ...state, loading: true };
+      break;
+    case authConstants.LOGOUT_SUCCESS:
+      state = { ...initState, loggedOut: true };
+      break;
+    case authConstants.LOGOUT_FAILURE:
+      state = { ...state, error: action.payload.error, loading: false };
+      break;
     default:
       break;
   }

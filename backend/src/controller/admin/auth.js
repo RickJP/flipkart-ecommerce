@@ -46,6 +46,8 @@ exports.signin = (req, res) => {
         );
         const { _id, firstName, lastName, email, role, fullName } = user;
 
+        res.cookie('token', token, { expiresIn: '6h' });
+
         res.status(200).json({
           token,
           user: {
@@ -63,5 +65,13 @@ exports.signin = (req, res) => {
     } else {
       return res.status(400).json({ message: 'No user found' });
     }
+  });
+};
+
+exports.signout = (req, res) => {
+  console.log('Starting signout');
+  res.clearCookie('token');
+  res.status(200).json({
+    message: 'Signout successful',
   });
 };

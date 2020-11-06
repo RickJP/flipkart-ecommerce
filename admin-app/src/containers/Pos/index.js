@@ -60,7 +60,7 @@ function Pos() {
   const displayUniquePos = () => {
     const counts = {};
     output.map((item, index) => {
-      counts[item.tag] = counts[item.tag] ? counts[item.tag] + 1 : 1;
+      return (counts[item.tag] = counts[item.tag] ? counts[item.tag] + 1 : 1);
     });
     setUniquePos(counts);
     setDisplayPosCounts(!displayPosCounts);
