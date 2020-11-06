@@ -11,13 +11,13 @@ function createCategories(categories, parentId = null) {
     category = categories.filter((cat) => cat.parentId == parentId);
   }
 
-  for (let cate of category) {
+  for (let c of category) {
     categoryList.push({
-      _id: cate._id,
-      parentId: cate.parentId,
-      name: cate.name,
-      slug: cate.slug,
-      children: createCategories(categories, cate._id),
+      _id: c._id,
+      parentId: c.parentId,
+      name: c.name,
+      slug: c.slug,
+      children: createCategories(categories, c._id),
     });
   }
   return categoryList;

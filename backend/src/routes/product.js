@@ -23,7 +23,7 @@ router.post(
   '/product/create',
   requireSignin,
   adminMiddleware,
-  upload.array('productPicture'),
+  upload.array('productPictures'),
   createProduct,
 );
 //router.get('/product/get', getProduct);

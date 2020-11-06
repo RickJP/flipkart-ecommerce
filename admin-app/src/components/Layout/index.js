@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 // import { Container } from 'react-bootstrap';
 import Header from '../Header';
+import './style.css';
 
 function Layout(props) {
   return (
@@ -14,7 +15,9 @@ function Layout(props) {
             <Col md={2} className='sidebar'>
               <ul>
                 <li>
-                  <NavLink to={`/`}>HOME</NavLink>
+                  <NavLink exact to={`/`}>
+                    HOME
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink to={`/category`}>CATEGORY</NavLink>
