@@ -2,6 +2,7 @@ const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
 const user = require('../../models/user');
 const bcrypt = require('bcrypt');
+const shortId = require('shortid');
 
 exports.signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
@@ -18,7 +19,7 @@ exports.signup = (req, res) => {
       lastName,
       email,
       hash_password,
-      username: Math.random().toString(),
+      username: shortId.generate(),
       role: 'admin',
     });
 
