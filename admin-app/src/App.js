@@ -7,10 +7,11 @@ import Pos from './containers/Pos';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { isUserLoggedIn } from './actions';
+import { getAllCategories, isUserLoggedIn } from './actions';
 import Products from './containers/Products';
 import Orders from './containers/Orders';
 import Category from './containers/Category';
+import { getInitialData } from './actions';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
+    dispatch(getInitialData());
   }, [auth.authenticate, dispatch]);
 
   return (

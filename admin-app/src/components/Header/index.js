@@ -50,6 +50,7 @@ function Header() {
   return (
     <Navbar
       collapseOnSelect
+      fixed='top'
       expand='sm'
       bg='dark'
       variant='dark'

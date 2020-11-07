@@ -9,35 +9,45 @@ const initState = {
 const buildNewCategories = (parentId, categories, category) => {
   let _categories = [];
 
+  if (parentId === undefined) {
+    return [
+      ...categories,
+      {
+        _id: category._id,
+        name: category.name,
+        slug: category.slug,
+        children: [],
+      },
+    ];
+  }
+
   for (let c of categories) {
     if (c._id === parentId) {
       _categories.push({
         ...c,
-        children:
-          c.children && c.children.length > 0
-            ? buildNewCategories(
-                parentId,
-                [
-                  ...c.children,
-                  {
-                    _id: category._id,
-                    name: category.name,
-                    slug: category.slug,
-                    parentId: category.parentId,
-                    children: category.children,
-                  },
-                ],
-                category,
-              )
-            : [],
+        children: c.children
+          ? buildNewCategories(
+              parentId,
+              [
+                ...c.children,
+                {
+                  _id: category._id,
+                  name: category.name,
+                  slug: category.slug,
+                  parentId: category.parentId,
+                  children: category.children,
+                },
+              ],
+              category,
+            )
+          : [],
       });
     } else {
       _categories.push({
         ...c,
-        children:
-          c.children && c.children.length > 0
-            ? buildNewCategories(parentId, c.children, category)
-            : [],
+        children: c.children
+          ? buildNewCategories(parentId, c.children, category)
+          : [],
       });
     }
   }
@@ -65,6 +75,7 @@ const reducer = (state = initState, action) => {
         state.categories,
         category,
       );
+
       console.log(updatedCategories);
 
       state = {
