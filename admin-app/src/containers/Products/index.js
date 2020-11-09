@@ -106,11 +106,12 @@ function Products() {
       <Modal
         show={show}
         handleClose={handleClose}
-        modalTitle={'Add New Product'}>
+        modalTitle={'Add New Product'}
+        saveChangesBtn={true}>
         <Input
           label='Name'
           value={name}
-          placeholder={`Category Name`}
+          placeholder={`Product Name`}
           onChange={(e) => setName(e.target.value)}
         />
         <Input
@@ -171,6 +172,7 @@ function Products() {
         show={productDetailsModal}
         handleClose={handleCloseProductDetailsModal}
         modalTitle={`Product Details`}
+        saveChangesBtn={false}
         size='lg'>
         <Row>
           <Col md='6'>

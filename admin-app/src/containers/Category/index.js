@@ -87,7 +87,8 @@ function Category(props) {
       <Modal
         show={show}
         handleClose={handleClose}
-        modalTitle={'Add New Category'}>
+        modalTitle={'Add New Category'}
+        saveChangesBtn={true}>
         <Input
           value={categoryName}
           placeholder={`Category Name`}

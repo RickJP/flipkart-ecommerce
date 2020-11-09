@@ -10,9 +10,11 @@ function NewModal(props) {
       </Modal.Header>
       <Modal.Body>{props.children}</Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={props.handleClose}>
-          Save Changes
-        </Button>
+        {props.saveChangesBtn ? (
+          <Button variant='secondary' onClick={props.handleClose}>
+            Save Changes
+          </Button>
+        ) : null}
       </Modal.Footer>
     </Modal>
   );

@@ -22,8 +22,8 @@ function Pos() {
     const sentence = new pos.Lexer().lex(text);
     const tagger = new pos.Tagger();
 
-    tagger.extendLexicon({ Obama: ['NNP'] });
-    tagger.tag(['Mr', 'Obama']);
+    // tagger.extendLexicon({ Obama: ['NNP'] });
+    // tagger.tag(['Mr', 'Obama']);
 
     const taggedWords = tagger.tag(sentence);
     let elements = [];
