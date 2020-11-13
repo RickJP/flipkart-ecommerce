@@ -85,7 +85,7 @@ function Products() {
                   <td>{p.name}</td>
                   <td>{p.price}</td>
                   <td>{p.quantity}</td>
-                  <td>{p.category.name}</td>
+                  <td>{p.category?.name}</td>
                   <td></td>
                 </tr>
               ))
@@ -191,7 +191,7 @@ function Products() {
           </Col>
           <Col md='6'>
             <label className='key'>Category</label>
-            <p className='value'>{productDetails?.category.name}</p>
+            <p className='value'>{productDetails?.category?.name}</p>
           </Col>
         </Row>
         <Row>

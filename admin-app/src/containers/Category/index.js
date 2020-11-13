@@ -328,6 +328,10 @@ function Category(props) {
     });
   };
 
+  const closeDeleteModal = () => {
+    setDeleteCategoryModal(false);
+  };
+
   const renderDeleteCategoryModal = () => {
     console.log('delete category modal');
     return (
@@ -339,9 +343,7 @@ function Category(props) {
           {
             label: 'No',
             color: 'primary',
-            onClick: () => {
-              alert('no');
-            },
+            onClick: closeDeleteModal,
           },
           {
             label: 'Yes',
