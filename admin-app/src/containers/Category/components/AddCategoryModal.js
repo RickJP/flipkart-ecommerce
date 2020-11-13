@@ -1,9 +1,9 @@
-import React from 'react';
+import react from 'react';
+import { Col, Row } from 'react-bootstrap';
 import Input from '../../../components/UI/Input';
 import Modal from '../../../components/UI/Modal';
-import { Row, Col } from 'react-bootstrap';
 
-const AddCategoryModal = (props) => {
+export const AddCategoryModal = (props) => {
   const {
     show,
     handleClose,
@@ -14,15 +14,11 @@ const AddCategoryModal = (props) => {
     setParentCategoryId,
     categoryList,
     handleCategoryImage,
-    onSubmit,
   } = props;
 
+  console.log('add category modal');
   return (
-    <Modal
-      show={show}
-      handleClose={handleClose}
-      onSubmit={onSubmit}
-      modalTitle={modalTitle}>
+    <Modal show={show} handleClose={handleClose} modalTitle={modalTitle}>
       <Row>
         <Col>
           <Input
@@ -34,10 +30,9 @@ const AddCategoryModal = (props) => {
         </Col>
         <Col>
           <select
-            className='form-control form-control-sm'
-            value={parentCategoryId}
+            className='form-control-sm'
             onChange={(e) => setParentCategoryId(e.target.value)}>
-            <option>select category</option>
+            <option>Select Category</option>
             {categoryList.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.name}
@@ -52,11 +47,10 @@ const AddCategoryModal = (props) => {
             type='file'
             name='categoryImage'
             onChange={handleCategoryImage}
+            className='form-control-md'
           />
         </Col>
       </Row>
     </Modal>
   );
 };
-
-export default AddCategoryModal;

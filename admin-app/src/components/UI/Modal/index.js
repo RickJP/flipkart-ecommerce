@@ -17,8 +17,11 @@ function NewModal(props) {
             </Button>
           ))
         ) : (
-          <Button variant='primary' onClick={props.handleClose}>
-            Save Changes
+          <Button
+            variant='primary'
+            className={props.className}
+            onClick={props.handleClose}>
+            Save
           </Button>
         )}
       </Modal.Footer>
