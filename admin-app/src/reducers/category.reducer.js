@@ -1,3 +1,4 @@
+import { IoMdGitNetwork } from 'react-icons/io';
 import { categoryConstants } from '../actions/constants';
 
 const initState = {
@@ -23,24 +24,17 @@ const buildNewCategories = (parentId, categories, category) => {
 
   for (let c of categories) {
     if (c._id === parentId) {
+      const newCategory = {
+        _id: category._id,
+        name: category.name,
+        slug: category.slug,
+        parentId: category.parentId,
+        children: category.children,
+      };
       _categories.push({
         ...c,
-        children: c.children
-          ? buildNewCategories(
-              parentId,
-              [
-                ...c.children,
-                {
-                  _id: category._id,
-                  name: category.name,
-                  slug: category.slug,
-                  parentId: category.parentId,
-                  children: category.children,
-                },
-              ],
-              category,
-            )
-          : [],
+        children:
+          c.children.length > 0 ? [...c.children, newCategory] : [newCategory],
       });
     } else {
       _categories.push({

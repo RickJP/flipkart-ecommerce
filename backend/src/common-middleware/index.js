@@ -28,6 +28,7 @@ exports.userMiddleware = (req, res, next) => {
 };
 
 exports.adminMiddleware = (req, res, next) => {
+  console.log('Admin Middleware');
   if (req.user.role !== 'admin') {
     return res.status(400).json({ message: 'Admin Access Denied' });
   }
