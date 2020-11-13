@@ -22,7 +22,7 @@ function App() {
       dispatch(isUserLoggedIn());
     }
     dispatch(getInitialData());
-  }, [auth.authenticate, dispatch]);
+  }, []);
 
   return (
     <div className='App'>

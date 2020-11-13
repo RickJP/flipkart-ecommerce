@@ -1,6 +1,5 @@
 import { authConstants } from './constants';
 import axios from '../helpers/axios';
-import { useSelector } from 'react-redux';
 
 export const login = (user) => {
   return async (dispatch) => {

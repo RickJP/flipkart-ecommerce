@@ -1,4 +1,3 @@
-import react from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Input from '../../../components/UI/Input';
 import Modal from '../../../components/UI/Modal';
@@ -10,7 +9,6 @@ export const AddCategoryModal = (props) => {
     modalTitle,
     categoryName,
     setCategoryName,
-    parentCategoryId,
     setParentCategoryId,
     categoryList,
     handleCategoryImage,

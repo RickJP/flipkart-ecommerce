@@ -1,7 +1,7 @@
 import axios from '../helpers/axios';
 import {
   categoryConstants,
-  initialDataConstants,
+  // initialDataConstants,
   productConstants,
 } from './constants';
 

@@ -1,5 +1,3 @@
-import react from 'react';
-import Input from '../../../components/UI/Input';
 import Modal from '../../../components/UI/Modal';
 
 export const DeleteCategoryModal = (props) => {

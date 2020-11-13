@@ -59,7 +59,6 @@ function Category(props) {
   const handleShow = () => setAddCategoryModal(true);
 
   const renderCategories = (categories) => {
-    console.log('render categories');
     let _categories = [];
     for (let category of categories) {
       _categories.push({
@@ -148,11 +147,7 @@ function Category(props) {
       form.append('type', item.type);
     });
 
-    dispatch(updateCategories(form)).then((result) => {
-      if (result) {
-        dispatch(getAllCategories());
-      }
-    });
+    dispatch(updateCategories(form));
     setUpdateCategoryModal(false);
   };
 
@@ -165,10 +160,10 @@ function Category(props) {
     const checkedIdsArray = checkedArray.map((item, index) => ({
       _id: item.value,
     }));
-    const expandedIdsArray = expandedArray.map((item, index) => ({
-      _id: item.value,
-    }));
-    const idsArray = expandedIdsArray.concat(checkedIdsArray);
+    // const expandedIdsArray = expandedArray.map((item, index) => ({
+    //   _id: item.value,
+    // }));
+    // const idsArray = expandedIdsArray.concat(checkedIdsArray);
 
     if (checkedIdsArray.length > 0) {
       dispatch(deleteCategoriesAction(checkedIdsArray)).then((result) => {

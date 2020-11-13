@@ -1,4 +1,4 @@
-import { IoMdGitNetwork } from 'react-icons/io';
+// import { IoMdGitNetwork } from 'react-icons/io';
 import { categoryConstants } from '../actions/constants';
 
 const initState = {
@@ -70,8 +70,6 @@ const reducer = (state = initState, action) => {
         category,
       );
 
-      console.log(updatedCategories);
-
       state = {
         ...state,
         categories: updatedCategories,
@@ -83,6 +81,15 @@ const reducer = (state = initState, action) => {
         ...initState,
         error: action.payload.error,
       };
+      break;
+    case categoryConstants.UPDATE_CATEGORIES_REQUEST:
+      state = { ...state, loading: true };
+      break;
+    case categoryConstants.UPDATE_CATEGORIES_SUCCESS:
+      state = { ...state, loading: false };
+      break;
+    case categoryConstants.UPDATE_CATEGORIES_FAILURE:
+      state = { ...state, error: action.payload.error };
       break;
     default:
       break;

@@ -204,8 +204,8 @@ function Products() {
           <Col>
             <label className='key'>Product Pictures</label>
             <div className='productPictures'>
-              {productDetails?.productPictures.map((pic) => (
-                <div className='productImgContainer'>
+              {productDetails?.productPictures.map((pic, index) => (
+                <div key={index} className='productImgContainer'>
                   <img src={generatePublicUrl(pic?.img)} alt='' />
                 </div>
               ))}
