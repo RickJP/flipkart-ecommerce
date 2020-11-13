@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, getAllCategories, updateCategories } from '../../actions';
+import {
+  addCategory,
+  getAllCategories,
+  updateCategories,
+  deleteCategories as deletCategoriesAction,
+} from '../../actions';
 import Layout from '../../components/Layout';
 import './style.css';
 import Input from '../../components/UI/Input';
@@ -16,7 +21,6 @@ import {
 } from 'react-icons/io';
 
 function Category(props) {
-  const [show, setShow] = useState(false);
   const [categoryName, setCategoryName] = useState('');
   const [parentCategoryId, setParentCategoryId] = useState('');
   const [categoryImage, setCategoryImage] = useState('');
@@ -25,7 +29,9 @@ function Category(props) {
   const [expanded, setExpanded] = useState([]);
   const [checkedArray, setCheckedArray] = useState([]);
   const [expandedArray, setExpandedArray] = useState([]);
+  const [addCategoryModal, setAddCategoryModal] = useState(false);
   const [updateCategoryModal, setUpdateCategoryModal] = useState(false);
+  const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
 
   const dispatch = useDispatch();
   const category = useSelector((state) => state.category);
@@ -44,11 +50,12 @@ function Category(props) {
     setCategoryName('');
     setParentCategoryId('');
 
-    setShow(false);
+    setAddCategoryModal(false);
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => setAddCategoryModal(true);
 
   const renderCategories = (categories) => {
+    console.log('render categories');
     let _categories = [];
     for (let category of categories) {
       _categories.push({
@@ -83,7 +90,11 @@ function Category(props) {
   };
 
   const updateCategory = () => {
+    updateCheckedAndExpandedCategories();
     setUpdateCategoryModal(true);
+  };
+
+  const updateCheckedAndExpandedCategories = () => {
     const categories = createCategoryList(category.categories);
 
     const checkedArray = [];
@@ -102,7 +113,6 @@ function Category(props) {
 
     setCheckedArray(checkedArray);
     setExpandedArray(expandedArray);
-    console.log(checked, expanded, categories, checkedArray, expandedArray);
   };
 
   const handleCategoriesInput = (key, value, index, type) => {
@@ -133,6 +143,7 @@ function Category(props) {
       form.append('parentId', item.parentId ? item.parentId : '');
       form.append('type', item.type);
     });
+
     dispatch(updateCategories(form)).then((result) => {
       if (result) {
         dispatch(getAllCategories());
@@ -142,6 +153,7 @@ function Category(props) {
   };
 
   const renderUpdateCategoriesModal = () => {
+    console.log('updateCategoriesModal');
     return (
       <Modal
         show={updateCategoryModal}
@@ -263,9 +275,10 @@ function Category(props) {
   };
 
   const renderAddCategoryModal = () => {
+    console.log('add category modal');
     return (
       <Modal
-        show={show}
+        show={addCategoryModal}
         handleClose={handleClose}
         modalTitle={'Add New Category'}
         saveChangesBtn={true}>
@@ -290,6 +303,60 @@ function Category(props) {
           name='categoryImage'
           onChange={handleCategoryImage}
         />
+      </Modal>
+    );
+  };
+
+  const deleteCategory = () => {
+    updateCheckedAndExpandedCategories();
+    setDeleteCategoryModal(true);
+  };
+
+  const deleteCategories = () => {
+    const checkedIdsArray = checkedArray.map((item, index) => ({
+      _id: item.value,
+    }));
+    const expandedIdsArray = expandedArray.map((item, index) => ({
+      _id: item.value,
+    }));
+    const idsArray = expandedIdsArray.concat(checkedIdsArray);
+    dispatch(deletCategoriesAction(idsArray)).then((result) => {
+      if (result) {
+        dispatch(getAllCategories());
+        setDeleteCategoryModal(false);
+      }
+    });
+  };
+
+  const renderDeleteCategoryModal = () => {
+    console.log('delete category modal');
+    return (
+      <Modal
+        modalTitle='Confirm'
+        show={deleteCategoryModal}
+        handleClose={() => setDeleteCategoryModal(false)}
+        buttons={[
+          {
+            label: 'No',
+            color: 'primary',
+            onClick: () => {
+              alert('no');
+            },
+          },
+          {
+            label: 'Yes',
+            color: 'danger',
+            onClick: deleteCategories,
+          },
+        ]}>
+        <h5>Expanded</h5>
+        {expandedArray.map((item, index) => (
+          <span key={index}>{item.name}</span>
+        ))}
+        <h5>Checked</h5>
+        {checkedArray.map((item, index) => (
+          <span key={index}>{item.name}</span>
+        ))}
       </Modal>
     );
   };
@@ -325,14 +392,15 @@ function Category(props) {
         </Row>
         <Row>
           <Col>
-            <button>Delete</button>
+            <button onClick={deleteCategory}>Delete</button>
             <button onClick={updateCategory}>Edit</button>
           </Col>
         </Row>
       </Container>
 
-      {renderAddCategoryModal()}
-      {renderUpdateCategoriesModal()}
+      {addCategoryModal && renderAddCategoryModal()}
+      {updateCategoryModal && renderUpdateCategoriesModal()}
+      {deleteCategoryModal && renderDeleteCategoryModal()}
     </Layout>
   );
 }

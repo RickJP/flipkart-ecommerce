@@ -6,6 +6,7 @@ const {
   addCategory,
   getCategories,
   updateCategories,
+  deleteCategories,
 } = require('../controller/category');
 const shortId = require('shortid');
 const path = require('path');
@@ -34,5 +35,6 @@ router.post(
   upload.array('categoryImage'),
   updateCategories,
 );
+router.post('/category/delete', deleteCategories);
 
 module.exports = router;
