@@ -12,11 +12,17 @@ export const AddCategoryModal = (props) => {
     setParentCategoryId,
     categoryList,
     handleCategoryImage,
+    onSubmit,
+    itemsSelected,
   } = props;
 
-  console.log('add category modal');
   return (
-    <Modal show={show} handleClose={handleClose} modalTitle={modalTitle}>
+    <Modal
+      show={show}
+      itemsSelected={itemsSelected}
+      handleClose={handleClose}
+      modalTitle={modalTitle}
+      onSubmit={onSubmit}>
       <Row>
         <Col>
           <Input

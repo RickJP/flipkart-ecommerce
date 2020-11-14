@@ -9,20 +9,20 @@ function NewModal(props) {
       </Modal.Header>
       <Modal.Body>{props.children}</Modal.Body>
       <Modal.Footer>
-        {props.buttons ? (
-          props.buttons.map((btn, index) => (
-            <Button key={index} variant={btn.color} onClick={btn.onClick}>
-              {btn.label}
-            </Button>
-          ))
-        ) : (
-          <Button
-            variant='primary'
-            className={props.className}
-            onClick={props.handleClose}>
-            Save
-          </Button>
-        )}
+        {props.buttons
+          ? props.buttons.map((btn, index) => (
+              <Button key={index} variant={btn.color} onClick={btn.onClick}>
+                {btn.label}
+              </Button>
+            ))
+          : props.itemsSelected && (
+              <Button
+                variant='primary'
+                className={props.className}
+                onClick={props.onSubmit}>
+                Save
+              </Button>
+            )}
       </Modal.Footer>
     </Modal>
   );

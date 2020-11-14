@@ -13,6 +13,5 @@ export const getProductsBySlug = (slug) => {
     } else {
       // dispatch({ error })
     }
-    console.log(res);
   };
 };

@@ -10,7 +10,7 @@ const MenuHeader = (props) => {
 
   useEffect(() => {
     dispatch(getAllCategories());
-  }, []);
+  }, [dispatch]);
 
   const renderCategories = (categories) => {
     let _categories = [];

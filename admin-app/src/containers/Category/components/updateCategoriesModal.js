@@ -13,24 +13,27 @@ export const UpdateCategoriesModal = (props) => {
     checkedArray,
     handleCategoriesInput,
     categoryList,
+    onSubmit,
+    saveChangesBtn,
+    itemsSelected,
   } = props;
-
-  console.log({ expandedArray, checkedArray });
 
   return (
     <Modal
       show={show}
+      itemsSelected={itemsSelected}
       handleClose={handleClose}
       modalTitle={modalTitle}
       size={size}
-      saveChangesBtn={true}>
-      <Row>
-        <Col>
-          <h6>Expanded</h6>
-        </Col>
-      </Row>
-
-      {expandedArray.length > 0 &&
+      onSubmit={onSubmit}
+      saveChangesBtn={saveChangesBtn}>
+      {expandedArray.length > 0 && (
+          <Row>
+            <Col>
+              <h6>Expanded</h6>
+            </Col>
+          </Row>
+        ) &&
         expandedArray.map((item, index) => (
           <Row key={index}>
             <Col>
@@ -88,9 +91,7 @@ export const UpdateCategoriesModal = (props) => {
           </Row>
         ))}
 
-      <h6>Checked Array</h6>
-
-      {checkedArray.length > 0 &&
+      {checkedArray.length > 0 && <h6>Checked Array</h6> &&
         checkedArray.map((item, index) => (
           <Row key={index}>
             <Col>
@@ -147,6 +148,11 @@ export const UpdateCategoriesModal = (props) => {
             </Col>
           </Row>
         ))}
+      {!itemsSelected && (
+        <h6 style={{ color: 'red' }}>
+          Nothing to edit. Please select an item.
+        </h6>
+      )}
     </Modal>
   );
 };

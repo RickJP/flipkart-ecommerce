@@ -20,7 +20,7 @@ export const ProductListPage = (props) => {
 
   useEffect(() => {
     dispatch(getProductsBySlug(category));
-  }, []);
+  }, [dispatch, category]);
 
   return (
     <Layout>

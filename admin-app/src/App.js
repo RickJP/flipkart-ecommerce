@@ -13,17 +13,23 @@ import Orders from './containers/Orders';
 import Category from './containers/Category';
 import { getInitialData } from './actions';
 import NewPage from './containers/NewPage';
+import { useState } from 'react';
 
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const [gotInitialData, setGotInitialData] = useState(false);
 
   useEffect(() => {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
+    } else {
+      if (!gotInitialData) {
+        dispatch(getInitialData());
+        setGotInitialData(true);
+      }
     }
-    dispatch(getInitialData());
-  }, []);
+  }, [auth.authenticate, dispatch, gotInitialData]);
 
   return (
     <div className='App'>

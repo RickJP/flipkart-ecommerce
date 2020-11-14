@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -40,8 +40,19 @@ function Category(props) {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.category);
 
+  useEffect(() => {
+    if (!category.loading) {
+      setAddCategoryModal(false);
+    }
+  }, [category.loading]);
+
   const handleClose = () => {
     const form = new FormData();
+
+    if (categoryName === '') {
+      setAddCategoryModal(false);
+      return;
+    }
 
     form.append('name', categoryName);
     form.append('parentId', parentCategoryId);
@@ -133,21 +144,23 @@ function Category(props) {
   };
 
   const updateCategoriesForm = () => {
-    const form = new FormData();
-    expandedArray.forEach((item, index) => {
-      form.append('_id', item.value);
-      form.append('name', item.name);
-      form.append('parentId', item.parentId ? item.parentId : '');
-      form.append('type', item.type);
-    });
-    checkedArray.forEach((item, index) => {
-      form.append('_id', item.value);
-      form.append('name', item.name);
-      form.append('parentId', item.parentId ? item.parentId : '');
-      form.append('type', item.type);
-    });
+    if (expandedArray.length > 0 || checkedArray.length > 0) {
+      const form = new FormData();
+      expandedArray.forEach((item, index) => {
+        form.append('_id', item.value);
+        form.append('name', item.name);
+        form.append('parentId', item.parentId ? item.parentId : '');
+        form.append('type', item.type);
+      });
+      checkedArray.forEach((item, index) => {
+        form.append('_id', item.value);
+        form.append('name', item.name);
+        form.append('parentId', item.parentId ? item.parentId : '');
+        form.append('type', item.type);
+      });
+      dispatch(updateCategories(form));
+    }
 
-    dispatch(updateCategories(form));
     setUpdateCategoryModal(false);
   };
 
@@ -160,6 +173,7 @@ function Category(props) {
     const checkedIdsArray = checkedArray.map((item, index) => ({
       _id: item.value,
     }));
+    console.log('checkedids', checkedIdsArray);
     // const expandedIdsArray = expandedArray.map((item, index) => ({
     //   _id: item.value,
     // }));
@@ -173,10 +187,6 @@ function Category(props) {
         }
       });
     }
-  };
-
-  const closeDeleteModal = () => {
-    setDeleteCategoryModal(false);
   };
 
   const categoryList = createCategoryList(category.categories);
@@ -226,10 +236,13 @@ function Category(props) {
       {updateCategoryModal && (
         <UpdateCategoriesModal
           show={updateCategoryModal}
-          handleClose={updateCategoriesForm}
+          handleClose={() => setUpdateCategoryModal(false)}
+          onSubmit={updateCategoriesForm}
           modalTitle={'Update Categories'}
           size='lg'
-          saveChangesBtn={true}
+          itemsSelected={
+            expandedArray.length > 0 || checkedArray.length > 0 ? true : false
+          }
           expandedArray={expandedArray}
           checkedArray={checkedArray}
           handleCategoriesInput={handleCategoriesInput}
@@ -239,7 +252,9 @@ function Category(props) {
       {addCategoryModal && (
         <AddCategoryModal
           show={addCategoryModal}
-          handleClose={handleClose}
+          itemsSelected={true}
+          handleClose={() => setAddCategoryModal(false)}
+          onSubmit={handleClose}
           modalTitle={'Add New Category'}
           categoryName={categoryName}
           setCategoryName={setCategoryName}
@@ -252,7 +267,10 @@ function Category(props) {
       {deleteCategoryModal && (
         <DeleteCategoryModal
           show={deleteCategoryModal}
-          handleClose={closeDeleteModal}
+          itemsSelected={
+            expandedArray.length > 0 || checkedArray.length > 0 ? true : false
+          }
+          handleClose={() => setDeleteCategoryModal(false)}
           deleteCategories={deleteCategories}
           setDeleteCategoryModal={setDeleteCategoryModal}
           expandedArray={expandedArray}
