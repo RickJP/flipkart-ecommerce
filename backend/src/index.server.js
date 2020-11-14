@@ -11,6 +11,7 @@ const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
 const initialDataRoutes = require('./routes/admin/initialData');
+const pageRoutes = require('./routes/admin/page');
 
 const env = process.env;
 const port = env.PORT || 3000;
@@ -41,6 +42,7 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', initialDataRoutes);
+app.use('/api', pageRoutes);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);

@@ -10,6 +10,7 @@ export const getInitialData = () => {
     const res = await axios.post(`initialdata`);
 
     if (res.status === 200) {
+      console.log('INITIAL DATA');
       const { categories, products } = res.data;
       dispatch({
         type: categoryConstants.GET_ALL_CATEGORIES_SUCCESS,

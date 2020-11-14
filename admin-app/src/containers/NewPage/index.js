@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/Layout';
 import Input from '../../components/UI/Input';
 import Modal from '../../components/UI/Modal';
 import { linearCategories } from '../../helpers/linearCategories';
+import { createPage } from '../../actions';
 
 const NewPage = () => {
   const [createModal, setCreateModal] = useState(false);
@@ -14,8 +15,11 @@ const NewPage = () => {
   const [categories, setCategories] = useState([]);
   const [categoryId, setCategoryId] = useState('');
   const [description, setDescription] = useState('');
+  const [type, setType] = useState('');
   const [banners, setBanners] = useState([]);
   const [products, setProducts] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setCategories(linearCategories(category.categories));
@@ -23,10 +27,46 @@ const NewPage = () => {
 
   const handleBannerImages = (e) => {
     console.log(e);
+    setBanners([...banners, e.target.files[0]]);
   };
 
   const handleProductImages = (e) => {
     console.log(e);
+    setProducts([...products, e.target.files[0]]);
+  };
+
+  const submitPageForm = (e) => {
+    //e.target.preventDefault();
+    const form = new FormData();
+
+    if (title === '') {
+      alert('Title is required');
+      setCreateModal(false);
+      return;
+    }
+
+    form.append('title', title);
+    form.append('description', description);
+    form.append('category', categoryId);
+    form.append('type', type);
+
+    banners.forEach((banner, index) => {
+      form.append('banners', banner);
+    });
+
+    products.forEach((product, index) => {
+      form.append('products', product);
+    });
+
+    dispatch(createPage(form));
+  };
+
+  const handleCategoryChange = (e) => {
+    const category = categories.find(
+      (category) => category.value === e.target.value,
+    );
+    setCategoryId(e.target.value);
+    setType(category?.type);
   };
 
   const renderCreatePageModal = () => {
@@ -34,21 +74,39 @@ const NewPage = () => {
       <Modal
         show={createModal}
         modalTitle={'Create New Page'}
-        handleClose={() => setCreateModal(false)}>
+        handleClose={submitPageForm}>
         <Container>
           <Row>
             <Col>
+              {/* <select
+                className='form-control form-control-sm'
+                value={type}
+                onChange={(e) => handleCategoryChange(e)}>
+                <option value=''>Select Type</option>
+                {categories.map((c, i) => (
+                  <option key={i} value={c._id}>
+                    {c.type}
+                  </option>
+                ))}
+              </select> */}
               <select
                 className='form-control form-control-sm'
                 value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}>
-                <option value=''>Select Category</option>
+                onChange={handleCategoryChange}>
+                <option>Select Category</option>
                 {categories.map((c, i) => (
                   <option key={i} value={c._id}>
                     {c.name}
                   </option>
                 ))}
               </select>
+
+              {/* <Input
+                type='select'
+                value={categoryId}
+                onChange={handleCategoryChange}
+                options={categories}
+                placeholder={'Select Category'}></Input> */}
             </Col>
           </Row>
 
@@ -75,12 +133,26 @@ const NewPage = () => {
           </Row>
 
           <Row>
+            {banners?.length > 0
+              ? banners.map((banner, index) => (
+                  <Row key={index}>
+                    <Col>{banner.name}</Col>
+                  </Row>
+                ))
+              : null}
             <Col>
               <Input type='file' name='banners' onChange={handleBannerImages} />
             </Col>
           </Row>
 
           <Row>
+            {products?.length > 0
+              ? products.map((product, index) => (
+                  <Row key={index}>
+                    <Col>{product.name}</Col>
+                  </Row>
+                ))
+              : null}
             <Col>
               <Input
                 type='file'
