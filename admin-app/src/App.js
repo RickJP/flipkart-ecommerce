@@ -12,6 +12,7 @@ import Products from './containers/Products';
 import Orders from './containers/Orders';
 import Category from './containers/Category';
 import { getInitialData } from './actions';
+import NewPage from './containers/NewPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
     <div className='App'>
       <Switch>
         <PrivateRoute path='/' exact component={Home}></PrivateRoute>
+        <PrivateRoute path='/page' exact component={NewPage}></PrivateRoute>
         <PrivateRoute path='/products' component={Products}></PrivateRoute>
         <PrivateRoute path='/orders' component={Orders}></PrivateRoute>
         <PrivateRoute path='/category' component={Category}></PrivateRoute>

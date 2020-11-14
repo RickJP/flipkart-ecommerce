@@ -11,14 +11,14 @@ function createCategories(categories, parentId = null) {
     category = categories.filter((cat) => cat.parentId == parentId);
   }
 
-  for (let cate of category) {
+  for (let c of category) {
     categoryList.push({
-      _id: cate._id,
-      name: cate.name,
-      slug: cate.slug,
-      parentId: cate.parentId,
-      type: cate.type,
-      children: createCategories(categories, cate._id),
+      _id: c._id,
+      name: c.name,
+      slug: c.slug,
+      parentId: c.parentId,
+      type: c.type,
+      children: createCategories(categories, c._id),
     });
   }
 
@@ -58,7 +58,6 @@ exports.getCategories = (req, res) => {
   Category.find({}).exec((error, categories) => {
     if (error) return res.status(400).json({ error });
 
-    console.log('Categories LENGTH = ', categories.length);
     if (categories) {
       const categoryList = createCategories(categories);
       res.status(200).json({ categoryList });
@@ -112,7 +111,7 @@ exports.deleteCategories = async (req, res) => {
     deletedCategories.push(deleteCategory);
   }
   if (deletedCategories.length == ids.length) {
-    res.status(201).json({ message: 'Categories remove successfully' });
+    res.status(204).json({ message: 'Categories remove successfully' });
   } else {
     res.status(400).json({ message: 'Something went terribly wrong!!' });
   }
