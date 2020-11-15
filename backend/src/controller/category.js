@@ -54,7 +54,6 @@ exports.addCategory = async (req, res) => {
 };
 
 exports.getCategories = (req, res) => {
-  console.log('Get Categories');
   Category.find({}).exec((error, categories) => {
     if (error) return res.status(400).json({ error });
 
@@ -103,7 +102,6 @@ exports.updateCategories = async (req, res) => {
 
 exports.deleteCategories = async (req, res) => {
   const { ids } = req.body.payload;
-  console.log(ids);
   const deletedCategories = [];
 
   for (let i = 0; i < ids.length; i++) {

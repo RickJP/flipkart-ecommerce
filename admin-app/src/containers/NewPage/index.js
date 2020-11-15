@@ -27,11 +27,10 @@ const NewPage = () => {
   }, [category]);
 
   useEffect(() => {
-    console.log(page);
     if (!page.loading) {
       setCreateModal(false);
       setTitle('');
-      setType('');
+      // setType('');
       setCategoryId('');
       setDescription('');
       setProducts([]);
@@ -40,17 +39,14 @@ const NewPage = () => {
   }, [page]);
 
   const handleBannerImages = (e) => {
-    console.log(e);
     setBanners([...banners, e.target.files[0]]);
   };
 
   const handleProductImages = (e) => {
-    console.log(e);
     setProducts([...products, e.target.files[0]]);
   };
 
   const submitPageForm = (e) => {
-    //e.target.preventDefault();
     const form = new FormData();
 
     if (title === '') {
@@ -87,25 +83,15 @@ const NewPage = () => {
     return (
       <Modal
         show={createModal}
+        itemsSelected={true}
         modalTitle={'Create New Page'}
         handleClose={() => setCreateModal(false)}
         onSubmit={submitPageForm}>
         <Container>
           <Row>
             <Col>
-              {/* <select
-                className='form-control form-control-sm'
-                value={type}
-                onChange={(e) => handleCategoryChange(e)}>
-                <option value=''>Select Type</option>
-                {categories.map((c, i) => (
-                  <option key={i} value={c._id}>
-                    {c.type}
-                  </option>
-                ))}
-              </select> */}
               <select
-                className='form-control form-control-sm'
+                className=''
                 value={categoryId}
                 onChange={handleCategoryChange}>
                 <option>Select Category</option>
@@ -128,7 +114,7 @@ const NewPage = () => {
           <Row>
             <Col>
               <Input
-                className='form-control form-control-sm'
+                className='f'
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={`Page Title`}
@@ -139,7 +125,7 @@ const NewPage = () => {
           <Row>
             <Col>
               <Input
-                className='form-control form-control-sm'
+                className=''
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder={`Page Description`}
@@ -156,7 +142,12 @@ const NewPage = () => {
                 ))
               : null}
             <Col>
-              <Input type='file' name='banners' onChange={handleBannerImages} />
+              <Input
+                className=''
+                type='file'
+                name='banners'
+                onChange={handleBannerImages}
+              />
             </Col>
           </Row>
 

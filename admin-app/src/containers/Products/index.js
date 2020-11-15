@@ -17,7 +17,7 @@ function Products() {
   const [productPictures, setProductPictures] = useState([]);
   const [productDetailsModal, setProductDetailsModal] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
-  const [show, setShow] = useState(false);
+  const [showAddProductModal, setShowAddProductModal] = useState(false);
   const category = useSelector((state) => state.category);
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
@@ -35,19 +35,15 @@ function Products() {
       form.append('productPictures', pic);
     }
 
-    // for (let e of form.entries()) {
-    //   console.log(e[0] + ' - ' + e[1] + ' - ' + e[2] + ' - ' + e[3]);
-    // }
-
     if (name !== '') {
       dispatch(addProduct(form));
     }
 
-    setShow(false);
+    setShowAddProductModal(false);
   };
 
   const handleShow = () => {
-    setShow(true);
+    setShowAddProductModal(true);
   };
 
   const createCategoryList = (categories, options = []) => {
@@ -96,7 +92,6 @@ function Products() {
   };
 
   const showProductDetailsModal = (product) => {
-    console.log(product);
     setProductDetails(product);
     setProductDetailsModal(true);
   };
@@ -104,8 +99,10 @@ function Products() {
   const renderAddProductModal = () => {
     return (
       <Modal
-        show={show}
-        handleClose={handleClose}
+        show={showAddProductModal}
+        itemsSelected={true}
+        handleClose={() => setShowAddProductModal(false)}
+        onSubmit={handleClose}
         modalTitle={'Add New Product'}
         saveChangesBtn={true}>
         <Input

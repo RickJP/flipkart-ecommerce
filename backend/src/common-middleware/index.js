@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 exports.upload = multer({ storage });
 
 exports.requireSignin = (req, res, next) => {
-  console.log('requireSignin');
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(' ')[1];
 
@@ -42,7 +41,6 @@ exports.userMiddleware = (req, res, next) => {
 };
 
 exports.adminMiddleware = (req, res, next) => {
-  console.log('Admin Middleware');
   if (req.user.role !== 'admin') {
     return res.status(400).json({ message: 'Admin Access Denied' });
   }

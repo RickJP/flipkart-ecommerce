@@ -37,7 +37,6 @@ function Pos() {
   };
 
   const selectAllText = () => {
-    console.log('Select All Text');
     textAreaRef.current.select();
   };
 
@@ -45,7 +44,6 @@ function Pos() {
     textAreaRef.current.select();
     document.execCommand('copy');
     e.target.focus();
-    console.log('Copy Success');
   };
 
   const clear = () => {

@@ -25,10 +25,7 @@ exports.createProduct = (req, res) => {
     createdBy: req.user._id,
   });
 
-  console.log(product);
-
   product.save((error, product) => {
-    console.log(product);
     if (error) return res.status(400).json({ error });
     if (product) {
       res.status(201).json({ product });

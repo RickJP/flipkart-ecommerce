@@ -37,7 +37,6 @@ exports.addItemsToCart = (req, res) => {
       });
       // res.status(200).json({  message: cart });
     } else {
-      console.log('NO CART');
       // if cart does not exists, then create cart
       const cart = new Cart({
         user: req.user._id,

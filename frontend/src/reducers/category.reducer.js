@@ -76,8 +76,6 @@ const reducer = (state = initState, action) => {
         category,
       );
 
-      console.log(updatedCategories);
-
       state = {
         ...state,
         categories: updatedCategories,

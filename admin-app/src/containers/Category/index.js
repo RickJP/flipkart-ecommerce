@@ -46,7 +46,7 @@ function Category(props) {
     }
   }, [category.loading]);
 
-  const handleClose = () => {
+  const addCategoryForm = () => {
     const form = new FormData();
 
     if (categoryName === '') {
@@ -143,7 +143,7 @@ function Category(props) {
     }
   };
 
-  const updateCategoriesForm = () => {
+  const updateCategoryForm = () => {
     if (expandedArray.length > 0 || checkedArray.length > 0) {
       const form = new FormData();
       expandedArray.forEach((item, index) => {
@@ -173,7 +173,6 @@ function Category(props) {
     const checkedIdsArray = checkedArray.map((item, index) => ({
       _id: item.value,
     }));
-    console.log('checkedids', checkedIdsArray);
     // const expandedIdsArray = expandedArray.map((item, index) => ({
     //   _id: item.value,
     // }));
@@ -237,7 +236,7 @@ function Category(props) {
         <UpdateCategoriesModal
           show={updateCategoryModal}
           handleClose={() => setUpdateCategoryModal(false)}
-          onSubmit={updateCategoriesForm}
+          onSubmit={updateCategoryForm}
           modalTitle={'Update Categories'}
           size='lg'
           itemsSelected={
@@ -254,7 +253,7 @@ function Category(props) {
           show={addCategoryModal}
           itemsSelected={true}
           handleClose={() => setAddCategoryModal(false)}
-          onSubmit={handleClose}
+          onSubmit={addCategoryForm}
           modalTitle={'Add New Category'}
           categoryName={categoryName}
           setCategoryName={setCategoryName}

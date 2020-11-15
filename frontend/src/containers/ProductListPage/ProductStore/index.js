@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsBySlug } from '../../actions/product.actions';
-import { generatePublicUrl } from '../../urlConfig';
-import Layout from '../Layout';
+import { getProductsBySlug } from '../../../actions';
+import { generatePublicUrl } from '../../../urlConfig';
 import './style.css';
-
-export const ProductListPage = (props) => {
+const ProductStore = (props) => {
   const dispatch = useDispatch();
   const [priceRange, setPriceRange] = useState({
     under5k: 5000,
@@ -16,20 +14,20 @@ export const ProductListPage = (props) => {
   });
   const product = useSelector((state) => state.product);
 
-  const category = props.match.params.slug;
-
   useEffect(() => {
-    dispatch(getProductsBySlug(category));
-  }, [dispatch, category]);
+    const { match } = props;
+    dispatch(getProductsBySlug(match.params.slug));
+  }, [dispatch]);
 
   return (
-    <Layout>
+    <>
       {Object.keys(product.productsByPrice).map((key, index) => {
         return (
           <div className='card' key={index}>
             <div className='cardHeader'>
               <div>
-                {category} mobile under {priceRange[key]}
+                {props.match.params.slug.split('-')[0]} mobile under{' '}
+                {priceRange[key]}
               </div>
               <button>view all</button>
             </div>
@@ -58,6 +56,8 @@ export const ProductListPage = (props) => {
           </div>
         );
       })}
-    </Layout>
+    </>
   );
 };
+
+export default ProductStore;
