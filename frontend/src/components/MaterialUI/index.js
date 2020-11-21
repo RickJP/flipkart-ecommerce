@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import './style.css';
 
-const Modal = (props) => {
-  if (!props.visible) return null;
+/**
+ * @author Rizwan Khan
+ * @function
+ **/
 
+const Modal = (props) => {
+  if (!props.visible) {
+    return null;
+  }
   return (
     <>
       <div className='modalFixedBg'>
@@ -20,6 +26,7 @@ const Modal = (props) => {
 
 const MaterialInput = (props) => {
   const [focus, setFocus] = useState(false);
+
   return (
     <div className='materialInput'>
       <label
@@ -30,7 +37,10 @@ const MaterialInput = (props) => {
         }}>
         {props.label}
       </label>
-      <div style={{ display: 'flex' }}>
+      <div
+        style={{
+          display: 'flex',
+        }}>
         <input
           className='input'
           type={props.type}
@@ -53,19 +63,11 @@ const MaterialInput = (props) => {
 
 const MaterialButton = (props) => {
   const onClick = () => {
-    props.onCLick && props.onClick();
+    props.onClick && props.onClick();
   };
-
   return (
-    <div
-      style={{
-        width: '90%',
-        ...props.style,
-      }}>
-      <button
-        style={{ backgroundColor: props.bgColor, color: props.textColor }}
-        className='materialButton'
-        onClick={props.onClick}>
+    <div style={{ width: '90%' }}>
+      <button onClick={onClick} className='materialButton'>
         {props.title && props.title}
       </button>
     </div>

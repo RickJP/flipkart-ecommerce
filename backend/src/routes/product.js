@@ -4,7 +4,11 @@ const {
   adminMiddleware,
   upload,
 } = require('../common-middleware');
-const { createProduct, getProductsBySlug } = require('../controller/product');
+const {
+  createProduct,
+  getProductsBySlug,
+  getProductDetailsById,
+} = require('../controller/product');
 
 const router = express.Router();
 
@@ -17,6 +21,7 @@ router.post(
 );
 router.get('/products/:slug', getProductsBySlug);
 
+router.get('/product/:productId', getProductDetailsById);
 // const multer = require('multer');
 
 // const shortId = require('shortid');

@@ -13,9 +13,10 @@ exports.createProduct = (req, res) => {
       return { img: file.filename };
     });
   }
+  console.log('req.files.length:  ', req.files.length);
 
   const product = new Product({
-    name: name,
+    name,
     slug: slugify(name),
     price,
     quantity,
@@ -24,6 +25,7 @@ exports.createProduct = (req, res) => {
     category,
     createdBy: req.user._id,
   });
+  console.log('PRODUCT', product);
 
   product.save((error, product) => {
     if (error) return res.status(400).json({ error });
@@ -69,4 +71,16 @@ exports.getProductsBySlug = (req, res) => {
         });
       }
     });
+};
+
+exports.getProductDetailsById = (req, res) => {
+  const { productId } = req.params;
+  if (productId) {
+    Product.findOne({ _id: productId }).exec((error, product) => {
+      if (error) return res.status(400).json({ error });
+      if (product) res.status(200).json({ product });
+    });
+  } else {
+    return res.status(400).json({ error: 'Params required' });
+  }
 };

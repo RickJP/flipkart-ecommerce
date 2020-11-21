@@ -8,7 +8,7 @@ import './style.css';
 function Layout(props) {
   return (
     <>
-      {console.log(props.innerWidth)}
+      {/* {console.log(props.innerWidth)} */}
       <Header />
       {props.sidebar ? (
         <Container>

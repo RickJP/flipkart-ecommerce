@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsBySlug } from '../../../actions';
 import { generatePublicUrl } from '../../../urlConfig';
+import { Link } from 'react-router-dom';
 import './style.css';
 const ProductStore = (props) => {
   const dispatch = useDispatch();
@@ -33,7 +34,11 @@ const ProductStore = (props) => {
             </div>
             <div className='productContainerOuter'>
               {product.productsByPrice[key].map((p, index) => (
-                <div key={index} className='productContainer'>
+                <Link
+                  to={`/${p.slug}/${p._id}/p`}
+                  style={{ display: 'block' }}
+                  key={index}
+                  className='productContainer'>
                   <div className='productImgContainer'>
                     {p.productPictures[0] && (
                       <img
@@ -50,7 +55,7 @@ const ProductStore = (props) => {
                     </div>
                     <div className='productPrice'>{p.price}</div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

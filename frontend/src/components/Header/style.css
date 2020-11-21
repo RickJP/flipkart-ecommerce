@@ -91,7 +91,8 @@
   cursor: pointer;
 }
 
-.more {
+.more,
+.fullName {
   font-weight: bold;
   color: #fff;
   display: flex;
