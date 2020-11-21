@@ -11,9 +11,14 @@ import { isUserLoggedIn } from './actions';
 import Products from './containers/Products';
 import Orders from './containers/Orders';
 import Category from './containers/Category';
-import { getInitialData } from './actions';
 import NewPage from './containers/NewPage';
+import Bilingual from './containers/Tryout/Bilingual';
+
+import { getInitialData } from './actions';
+import { getBilingualDocs } from './actions/tryout/tryout.actions';
+
 import { useState } from 'react';
+import { bilingualConstants } from './actions/constants';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +31,7 @@ function App() {
     } else {
       if (!gotInitialData) {
         dispatch(getInitialData());
+        dispatch(getBilingualDocs());
         setGotInitialData(true);
       }
     }
@@ -39,6 +45,7 @@ function App() {
         <PrivateRoute path='/products' component={Products}></PrivateRoute>
         <PrivateRoute path='/orders' component={Orders}></PrivateRoute>
         <PrivateRoute path='/category' component={Category}></PrivateRoute>
+        <PrivateRoute path='/bilingual' component={Bilingual}></PrivateRoute>
         <Route path='/signin' component={Signin}></Route>
         <Route path='/signup' component={Signup}></Route>
         <Route path='/pos' component={Pos}></Route>

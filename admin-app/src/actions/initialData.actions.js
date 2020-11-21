@@ -1,5 +1,6 @@
 import axios from '../helpers/axios';
 import {
+  bilingualConstants,
   categoryConstants,
   // initialDataConstants,
   productConstants,

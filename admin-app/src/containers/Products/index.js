@@ -5,8 +5,8 @@ import Input from '../../components/UI/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../actions/product.actions';
 import Modal from '../../components/UI/Modal';
-import './style.css';
 import { generatePublicUrl } from '../../urlConfig';
+import './style.css';
 
 function Products() {
   const [name, setName] = useState('');
