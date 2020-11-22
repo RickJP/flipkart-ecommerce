@@ -17,11 +17,12 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
-  }, [auth.authenticate, dispatch]);
+  }, [auth.authenticate]);
 
   useEffect(() => {
+    console.log('App.js - update cart');
     dispatch(updateCart());
-  }, []);
+  }, [auth.authenticate]);
 
   return (
     <div className='App'>

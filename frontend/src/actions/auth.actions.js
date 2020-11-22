@@ -1,4 +1,4 @@
-import { authConstants } from './constants';
+import { authConstants, cartConstants } from './constants';
 import axios from '../helpers/axios';
 
 export const login = (user) => {
@@ -55,19 +55,24 @@ export const isUserLoggedIn = () => {
 export const logout = () => {
   return async (dispatch) => {
     dispatch({ type: authConstants.LOGOUT_REQUEST });
-    const res = await axios.post('/admin/signout');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    dispatch({ type: authConstants.LOGOUT_SUCCESS });
+    dispatch({ type: cartConstants.RESET_CART });
 
-    if (res.status === 200) {
-      localStorage.clear();
-      dispatch({
-        type: authConstants.LOGOUT_SUCCESS,
-      });
-    } else {
-      dispatch({
-        type: authConstants.LOGOUT_FAILURE,
-        payload: { error: res.data.error },
-      });
-    }
+    // const res = await axios.post('/admin/signout');
+
+    // if (res.status === 200) {
+    //   localStorage.clear();
+    //   dispatch({
+    //     type: authConstants.LOGOUT_SUCCESS,
+    //   });
+    // } else {
+    //   dispatch({
+    //     type: authConstants.LOGOUT_FAILURE,
+    //     payload: { error: res.data.error },
+    //   });
+    // }
   };
 };
 
@@ -75,6 +80,8 @@ export const signout = () => {
   return async (dispatch) => {
     dispatch({ type: authConstants.LOGOUT_REQUEST });
     localStorage.clear();
+
     dispatch({ type: authConstants.LOGOUT_SUCCESS });
+    dispatch({ type: cartConstants.RESET_CART });
   };
 };

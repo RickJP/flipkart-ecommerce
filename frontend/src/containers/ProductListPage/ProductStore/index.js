@@ -19,7 +19,7 @@ const ProductStore = (props) => {
   useEffect(() => {
     const { match } = props;
     dispatch(getProductsBySlug(match.params.slug));
-  }, [dispatch]);
+  }, [dispatch, props]);
 
   return (
     <>
