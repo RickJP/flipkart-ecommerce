@@ -6,7 +6,8 @@ import { ProductDetailsPage } from './containers/ProductDetailsPage';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isUserLoggedIn } from './actions';
+import { isUserLoggedIn, updateCart } from './actions';
+import CartPage from './containers/CartPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,11 +19,16 @@ function App() {
     }
   }, [auth.authenticate, dispatch]);
 
+  useEffect(() => {
+    dispatch(updateCart());
+  }, []);
+
   return (
     <div className='App'>
       <Router>
         <Switch>
           <Route path='/' exact component={HomePage} />
+          <Route path='/cart' component={CartPage} />
           <Route
             path='/:productSlug/:productId/p'
             component={ProductDetailsPage}

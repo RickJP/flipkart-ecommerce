@@ -1,0 +1,28 @@
+.cartContainer {
+  display: flex;
+  max-width: 1260px;
+  margin: 15px auto;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.cartItemDetails {
+  padding: 20px;
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  align-items: space-around;
+}

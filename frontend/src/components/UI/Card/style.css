@@ -2,5 +2,12 @@
   width: 100%;
   background: #fff;
   border: 1px solid #cecece;
+  box-shadow: rgba(0, 0, 0, .2) 0 1px 2px 0 !important;
+}
 
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border: 1px solid #cecece;
 }
