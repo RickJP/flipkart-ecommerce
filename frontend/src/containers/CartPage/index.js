@@ -1,34 +1,47 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../actions';
 import Layout from '../../components/Layout';
 import Card from '../../components/UI/Card';
+import CartItem from './CartItem';
 
 import './style.css';
 
 const CartPage = (props) => {
   const cart = useSelector((state) => state.cart);
-  const cartItems = cart.cartItems;
+  //const cartItems = cart.cartItems;
+  const [cartItems, setCartItems] = useState(cart.cartItems);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setCartItems(cart.cartItems);
+  }, [cart.cartItems]);
+
+  const onQuantityIncrement = (_id, qty) => {
+    const { name, price, img } = cartItems[_id];
+    dispatch(addToCart({ _id, name, price, img }, 1));
+  };
+  const onQuantityDecrement = (_id, qty) => {
+    const { name, price, img } = cartItems[_id];
+    dispatch(addToCart({ _id, name, price, img }, -1));
+  };
 
   return (
     <Layout>
-      <div className='cartContainer'>
+      <div
+        className='cartContainer'
+        style={{ margin: '15px 30px', alignItems: 'flex-start' }}>
         <Card headerleft={`My Cart`} headerright={`Deliver To`}>
           {Object.keys(cartItems).map((key, index) => (
-            <div key={index}>
-              <div className='cartProductContainer'>
-                <img src='' alt='' />
-              </div>
-
-              <div className='cartItemDetails row'>
-                <div className='column'>
-                  {cartItems[key].name} - quantity - {cartItems[key].qty}
-                </div>
-                <div className='column'>Mr Brown</div>
-              </div>
-            </div>
+            <CartItem
+              key={index}
+              cartItem={cartItems[key]}
+              onQuantityInc={onQuantityIncrement}
+              onQuantityDec={onQuantityDecrement}
+            />
           ))}
         </Card>
-        <Card style={{ width: '500px' }}>Price</Card>
+        <Card headerleft='Price' style={{ width: '500px' }}></Card>
       </div>
     </Layout>
   );
