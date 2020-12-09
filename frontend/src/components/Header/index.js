@@ -25,7 +25,6 @@ const Header = (props) => {
   const dispatch = useDispatch();
 
   const userLogin = () => {
-    console.log(' EMAIL  ' + email + ' | ' + 'PASSWORD ' + '  ' + password);
     dispatch(login({ email, password }));
   };
 
@@ -44,7 +43,11 @@ const Header = (props) => {
   const renderLoggedInMenu = () => {
     return (
       <DropdownMenu
-        menu={<a className='fullName'>{auth.user?.fullName}</a>}
+        menu={
+          <a href='' className='fullName'>
+            {auth.user?.fullName}
+          </a>
+        }
         menus={[
           { label: 'My Profile', href: '', icon: null },
           { label: 'Supercoin Zone', href: '', icon: null },
@@ -105,37 +108,40 @@ const Header = (props) => {
               <h2>Login</h2>
               <p>Get access to your Orders, Wishlist and Recommendations</p>
             </div>
+
             <div className='rightspace'>
-              <MaterialInput
-                type='text'
-                label='Enter Email/Enter Mobile Number'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className='loginInputContainer'>
+                <MaterialInput
+                  type='text'
+                  label='Enter Email/Enter Mobile Number'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
 
-              <MaterialInput
-                type='password'
-                label='Enter Password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                // rightElement={<a href='#'>Forgot?</a>}
-              />
+                <MaterialInput
+                  type='password'
+                  label='Enter Password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  // rightElement={<a href='#'>Forgot?</a>}
+                />
 
-              <MaterialButton
-                title='Login'
-                bgColor='#fb641b'
-                textColor='#ffffff'
-                style={{ margin: '40px 0 20px 0' }}
-                onClick={userLogin}
-              />
+                <MaterialButton
+                  title='Login'
+                  bgColor='#fb641b'
+                  textColor='#ffffff'
+                  style={{ margin: '40px 0 20px 0' }}
+                  onClick={userLogin}
+                />
 
-              <p>OR</p>
-              <MaterialButton
-                title='Request OTP'
-                bgColor='#ffffff'
-                textColor='#2874f0'
-                style={{ margin: '20px 0' }}
-              />
+                <p style={{ textAlign: 'center' }}>OR</p>
+                <MaterialButton
+                  title='Request OTP'
+                  bgColor='#ffffff'
+                  textColor='#2874f0'
+                  style={{ margin: '20px 0' }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -194,7 +200,7 @@ const Header = (props) => {
             ]}
           />
           <div>
-            <a className='cart'>
+            <a href={`/cart`} className='cart'>
               <IoIosCart />
               <span style={{ margin: '0 10px' }}>Cart</span>
             </a>

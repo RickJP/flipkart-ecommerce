@@ -7,6 +7,8 @@ import CartItem from './CartItem';
 
 import './style.css';
 
+import { MaterialButton } from '../../components/MaterialUI';
+
 const CartPage = (props) => {
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
@@ -39,7 +41,10 @@ const CartPage = (props) => {
       <div
         className='cartContainer'
         style={{ margin: '15px 30px', alignItems: 'flex-start' }}>
-        <Card headerleft={`My Cart`} headerright={`Deliver To`}>
+        <Card
+          headerleft={`My Cart`}
+          headerright={`Deliver To`}
+          style={{ width: 'calc(100% - 400px)', overflow: 'hidden' }}>
           {Object.keys(cartItems).map((key, index) => (
             <CartItem
               key={index}
@@ -48,8 +53,26 @@ const CartPage = (props) => {
               onQuantityDec={onQuantityDecrement}
             />
           ))}
+
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              background: '#ffffff',
+              justifyContent: 'flex-end',
+              boxShadow: '0 0 10px 10px #eee',
+              padding: '10px 0',
+              boxSizing: 'border-box',
+            }}>
+            <div style={{ width: '250px' }}>
+              <MaterialButton
+                title='PLACE ORDERS'
+                onClick={() => props.history.push('/checkout')}
+              />
+            </div>
+          </div>
         </Card>
-        <Card headerleft='Price' style={{ width: '500px' }}></Card>
+        <Card headerleft='Price' style={{ width: '380px' }}></Card>
       </div>
     </Layout>
   );

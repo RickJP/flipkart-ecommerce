@@ -110,7 +110,7 @@ const getCartItems = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: cartConstants.ADD_TO_CART_REQUEST });
-      const res = axios.get(`/user/cart/get`);
+      const res = await axios.get(`/user/cart/get`);
       if (res.status === 200) {
         const { cartItems } = res.data;
         console.log({ getCartItems: cartItems });
